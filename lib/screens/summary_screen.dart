@@ -283,11 +283,12 @@ class _DistributionCard extends StatelessWidget {
           children: [
             Text('By category', style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: AppSpacing.md),
-            Row(
-              children: [
-                SizedBox(
-                  width: MediaQuery.sizeOf(context).width < 600 ? 180 : 220,
-                  height: MediaQuery.sizeOf(context).width < 600 ? 180 : 220,
+            LayoutBuilder(
+              builder: (context, constraints) {
+                final compact = constraints.maxWidth < 560;
+                final chart = SizedBox(
+                  width: compact ? 180 : 220,
+                  height: compact ? 180 : 220,
                   child: TweenAnimationBuilder<double>(
                     tween: Tween(begin: 0, end: 1),
                     duration: MediaQuery.disableAnimationsOf(context)
@@ -317,32 +318,46 @@ class _DistributionCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(width: AppSpacing.md),
-                Expanded(
-                  child: Column(
-                    children: List.generate(NoticeCategory.values.length, (
-                      index,
-                    ) {
-                      final category = NoticeCategory.values[index];
-                      return InkWell(
-                        onTap: () => onCategoryTap(category),
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: AppSpacing.sm),
-                          child: Row(
-                            children: [
-                              Icon(category.icon, size: AppSpacing.md),
-                              const SizedBox(width: AppSpacing.xs),
-                              Expanded(child: Text(category.label)),
-                              Text('${counts[index]} · ${percentages[index]}%'),
-                            ],
-                          ),
+                );
+                final legend = Column(
+                  children: List.generate(NoticeCategory.values.length, (
+                    index,
+                  ) {
+                    final category = NoticeCategory.values[index];
+                    return InkWell(
+                      onTap: () => onCategoryTap(category),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          bottom: AppSpacing.sm,
                         ),
+                        child: Row(
+                          children: [
+                            Icon(category.icon, size: AppSpacing.md),
+                            const SizedBox(width: AppSpacing.xs),
+                            Expanded(child: Text(category.label)),
+                            Text('${counts[index]} · ${percentages[index]}%'),
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+                );
+                return compact
+                    ? Column(
+                        children: [
+                          chart,
+                          const SizedBox(height: AppSpacing.md),
+                          legend,
+                        ],
+                      )
+                    : Row(
+                        children: [
+                          chart,
+                          const SizedBox(width: AppSpacing.md),
+                          Expanded(child: legend),
+                        ],
                       );
-                    }),
-                  ),
-                ),
-              ],
+              },
             ),
           ],
         ),

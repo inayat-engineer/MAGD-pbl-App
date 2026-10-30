@@ -15,6 +15,7 @@ abstract final class AppRadii {
 }
 
 abstract final class AppDurations {
+  static const instant = Duration.zero;
   static const fast = Duration(milliseconds: 120);
   static const normal = Duration(milliseconds: 200);
   static const crossFade = Duration(milliseconds: 300);

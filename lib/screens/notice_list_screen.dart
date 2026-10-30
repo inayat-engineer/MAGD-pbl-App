@@ -296,12 +296,17 @@ class _NoticeListScreenState extends State<NoticeListScreen> {
               category: category,
               count: count,
               selected: widget.controller.selectedCategory == category,
-              onTap: () => widget.controller.setCategory(category),
+              onTap: () => _selectCategory(category),
             );
           },
         ),
       ),
     );
+  }
+
+  void _selectCategory(NoticeCategory? category) {
+    setState(() {});
+    widget.controller.setCategory(category);
   }
 
   Widget _activeFilter(BuildContext context) {

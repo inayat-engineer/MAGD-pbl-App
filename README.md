@@ -1,17 +1,69 @@
-# magd_pbl
+# MUET Notify
 
-A new Flutter project.
+MUET Notify is a responsive campus notice app for browsing examination,
+fee, event, and scholarship announcements. It includes category and
+department filters, deadline countdowns, urgent notices, summary analytics,
+and an adaptive desktop master-detail layout.
 
-## Getting Started
+## Tech stack
 
-This project is a starting point for a Flutter application.
+- Flutter and Dart
+- Material 3
+- GoRouter
+- `flutter_dotenv` for local configuration loading
+- `google_fonts`, `intl`, and `shared_preferences`
+- ChangeNotifier-based state management
 
-A few resources to get you started if this is your first Flutter project:
+## Deployment
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+The web build can be deployed to Vercel using the included
+[`vercel.json`](./vercel.json) configuration.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```powershell
+flutter build web
+```
+
+Deploy the generated `build/web` directory through Vercel.
+
+## Local setup
+
+1. Install Flutter and verify the installation:
+
+   ```powershell
+   flutter doctor
+   ```
+
+2. Install dependencies:
+
+   ```powershell
+   flutter pub get
+   ```
+
+3. Create the local environment file:
+
+   ```powershell
+   Copy-Item .env.example .env
+   ```
+
+   Do not commit `.env`, credentials, or key files. Values bundled into a
+   Flutter web app are visible to users, so real secrets must remain on a
+   server-side service.
+
+4. Run the app:
+
+   ```powershell
+   flutter run -d chrome
+   ```
+
+   Or run the Windows desktop target:
+
+   ```powershell
+   flutter run -d windows
+   ```
+
+5. Validate the project:
+
+   ```powershell
+   flutter analyze
+   flutter test
+   ```

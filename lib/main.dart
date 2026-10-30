@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:go_router/go_router.dart';
 import 'package:magd_pbl/data/dummy_notices.dart';
 import 'package:magd_pbl/models/notice.dart';
@@ -14,6 +15,7 @@ import 'package:magd_pbl/utils/strings.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: '.env');
   usePathUrlStrategy();
   final themeController = await ThemeController.load();
   runApp(MyApp(themeController: themeController));

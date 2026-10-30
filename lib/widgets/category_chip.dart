@@ -34,7 +34,7 @@ class CategoryChip extends StatelessWidget {
       selected: selected,
       label: '${category?.label ?? 'All'} category filter',
       child: AnimatedContainer(
-        duration: AppDurations.normal,
+        duration: AppDurations.instant,
         height: 40,
         decoration: BoxDecoration(
           color: background,
